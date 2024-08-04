@@ -20,6 +20,10 @@ Netlist: This is a Verilog netlist of the current design or from a specific cell
 
 ## Some Snippets :
 ### Elaborated Design Schematic : 
-![image](https://github.com/user-attachments/assets/a9cac587-e7fa-4837-bf8a-cba6a3cf898d)
+![Uploading Screenshot 2024-08-04 144522.png…]()
 ### Device After Implementation on FPGA Artex7 - Basys 3
-![image](https://github.com/user-attachments/assets/43d114d0-2988-4d8c-9660-39ad259011d0)
+![Screenshot 2024-08-04 154803](https://github.com/user-attachments/assets/eb3574d8-77dd-4279-8838-15c725a914b8)
+![Screenshot 2024-08-04 154853](https://github.com/user-attachments/assets/14729c9f-c0b5-4f6c-9514-44b12c1d1b68)
+
+
+
