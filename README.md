@@ -7,16 +7,16 @@ High-Frequency Operation: Optimized for performance with the best state encoding
 Comprehensive Files: Includes bitstream, constraints, do files, netlist, documentation, RTL, and testbench verification
 
 ## Directory Structure
-Top Module (SPI Wrapper): Contains the RTL code for the Wrapper that connects between RAM & Slave.
-RAM Module: The part used in storing data coming from Slave.
-Slave Module: The part used in Sending data coming from Master in a specific protocol.
-RAM Testbench: Includes the testbench code for checking RAM functionality.
-Slave Testbench: Includes the testbench code for checking Slave functionality.
-Master: Includes the testbench code for the overall system to check the whole functionality is running well. 
-Constraints File: Constraints file to connect ports to FPGA.
-Do File: A scripted running file to automate questa sim flow.
-Bitstream: Bitstream file generated after implementation on FPGA.
-Netlist: This is a Verilog netlist of the current design or from a specific cell of the design. The output is anIEEE 1364-2001 compliant Verilog HDL file that contains netlist information obtained from the input design files.
+#### Top Module (SPI Wrapper): Contains the RTL code for the Wrapper that connects between RAM & Slave.
+#### RAM Module: The part used in storing data coming from Slave.
+#### Slave Module: The part used in Sending data coming from Master in a specific protocol.
+#### RAM Testbench: Includes the testbench code for checking RAM functionality.
+#### Slave Testbench: Includes the testbench code for checking Slave functionality.
+#### Master: Includes the testbench code for the overall system to check the whole functionality is running well. 
+#### Constraints File: Constraints file to connect ports to FPGA.
+#### Do File: A scripted running file to automate questa sim flow.
+#### Bitstream: Bitstream file generated after implementation on FPGA.
+#### Netlist: This is a Verilog netlist of the current design or from a specific cell of the design. The output is anIEEE 1364-2001 compliant Verilog HDL file that contains netlist information obtained from the input design files.
 
 ## Some Snippets :
 ### Elaborated Design Schematic : 
