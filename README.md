@@ -1,4 +1,4 @@
-# SPI-Slave-Interface
+# SPI Slave-Interface With Single Port RAM
 This repository contains Verilog code for an SPI (Serial Peripheral Interface) Wrapper module that integrates an SPI Slave and a RAM module to facilitate communication between a master device and a memory block. The design is optimized to operate at the highest possible frequency by choosing the best state encoding based on timing analysis.
 
 ## Project Overview
