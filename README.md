@@ -125,12 +125,6 @@ The One-Hot encoding scheme provides the best timing margins for both setup and 
 
 ### License
 
-This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
-
----
-
-### Note
-
 This project was developed as part of a coursework under the supervision of **Eng. Kareem Waseem**.
 
 ---
