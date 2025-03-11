@@ -62,22 +62,6 @@ The SPI slave module receives data from the master device and processes it based
 - **10**: Read - Holds `din[7:0]` as a read address.
 - **11**: Read - Reads data from the memory at the held read address and outputs it on `dout`.
 
-### RTL Code Snippets
-
-#### SPI Slave Module
-
-```verilog
-module SPI_Slave (MOSI, MISO, SS_n, clk, rst_n, rx_data, rx_valid, tx_data, tx_valid);
-    // Port declarations
-    input MOSI, SS_n, clk, rst_n;
-    input [9:0] tx_data;
-    input tx_valid;
-    output [9:0] rx_data;
-    output rx_valid, MISO;
-
-    // Internal signals and state machine logic
-    // ...
-endmodule
 
 ## Some Snippets :
 - Elaborated Design Schematic : 
@@ -85,6 +69,74 @@ endmodule
 - Synthesis Schematic : 
 ![Screenshot 2024-08-04 151058](https://github.com/user-attachments/assets/14c49ae4-e254-4f27-a2b3-5a6e5202a27f)
 
-### Device After Implementation on FPGA Artex7 - Basys 3
+Device After Implementation on FPGA Artex7 - Basys 3
 - ![Screenshot 2024-08-04 154803](https://github.com/user-attachments/assets/eb3574d8-77dd-4279-8838-15c725a914b8)
 - ![Screenshot 2024-08-04 154853](https://github.com/user-attachments/assets/14729c9f-c0b5-4f6c-9514-44b12c1d1b68)
+
+### Simulation Waveforms
+
+Simulation waveforms are provided to verify the correct operation of the SPI slave and RAM modules. The waveforms show the timing of signals such as `clk`, `rst_n`, `din`, `dout`, `rx_valid`, and `tx_valid`. These waveforms were generated using a Verilog testbench and simulated using industry-standard tools such as **ModelSim** or **Vivado Simulator** [^1^].
+
+### Timing and Utilization Reports
+
+The project includes timing and utilization reports for different encoding schemes (Gray, Sequential, and One-Hot). The reports show the setup, hold, and pulse width slack values, as well as the resource utilization on the target FPGA. These reports were generated using **Xilinx Vivado** for synthesis and implementation [^2^].
+
+#### Timing Report Summary
+
+| Encoding       | Worst Negative Setup Slack (WNS) | Worst Hold Slack (WHS) | Worst Pulse Width Slack (WPWS) |
+|----------------|----------------------------------|------------------------|--------------------------------|
+| Gray           | 5.376 ns                        | 0.101 ns               | 4.500 ns                       |
+| Sequential     | 5.693 ns                        | 0.068 ns               | 4.500 ns                       |
+| One-Hot        | 5.806 ns                        | 0.144 ns               | 4.500 ns                       |
+
+#### Utilization Report
+
+| Resource | Utilization | Available | Utilization % |
+|----------|-------------|-----------|---------------|
+| LUT      | 22          | 20800     | 0.11%         |
+| FF       | 23          | 41600     | 0.06%         |
+| IO       | 25          | 106       | 23.58%        |
+
+### Conclusion
+
+The One-Hot encoding scheme provides the best timing margins for both setup and hold constraints, making it the preferred choice for high-frequency operation [^3^].
+
+---
+
+### Repository Structure
+
+- **RTL**: Contains the Verilog source code for the SPI slave, RAM, and wrapper modules.
+- **Testbench**: Contains the testbench code for simulation.
+- **Simulation**: Includes simulation waveforms and results.
+- **Reports**: Contains timing and utilization reports.
+- **Constraints**: FPGA constraint files for synthesis and implementation.
+
+---
+
+### How to Run
+
+1. Clone the repository.
+2. Open the project in your preferred FPGA tool (e.g., **Vivado**).
+3. Synthesize and implement the design.
+4. Run the testbench to verify functionality.
+5. Generate the bitstream and program the FPGA.
+
+---
+
+### License
+
+This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
+
+---
+
+### Note
+
+This project was developed as part of a coursework under the supervision of **Eng. Kareem Waseem**.
+
+---
+
+### References
+
+[^1^]: ModelSim. (n.d.). *Simulation and Verification Tool*. Retrieved from [https://www.intel.com/content/www/us/en/software/programmable/quartus-prime/model-sim.html](https://www.intel.com/content/www/us/en/software/programmable/quartus-prime/model-sim.html)  
+[^2^]: Xilinx Vivado. (n.d.). *Design Suite for FPGA Synthesis and Implementation*. Retrieved from [https://www.xilinx.com/products/design-tools/vivado.html](https://www.xilinx.com/products/design-tools/vivado.html)  
+[^3^]: Waseem, K. (2023). *SPI Slave with Single Port RAM: Coursework Project*.  
