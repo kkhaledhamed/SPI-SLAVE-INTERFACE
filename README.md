@@ -1,22 +1,83 @@
-# SPI Slave-Interface With Single Port RAM
-This repository contains Verilog code for an SPI (Serial Peripheral Interface) Wrapper module that integrates an SPI Slave and a RAM module to facilitate communication between a master device and a memory block. The design is optimized to operate at the highest possible frequency by choosing the best state encoding based on timing analysis.
+# SPI Slave with Single Port RAM
+
+This project implements an SPI slave module that communicates with a single-port RAM. The SPI slave receives data from a master device, storing and retrieving data to and from the RAM.
 
 ## Project Overview
-This repository contains a Verilog-based SPI Slave Interface designed to communicate with a master device and a RAM module, creating a testbench(Master) for verification, and running the design flow using Vivado and QuestaSim.
-High-Frequency Operation: Optimized for performance with the best state encoding based on timing analysis.
-Comprehensive Files: Includes bitstream, constraints, do files, netlist, documentation, RTL, and testbench verification
 
-## Directory Structure
-- Top Module (SPI Wrapper): Contains the RTL code for the Wrapper that connects between RAM & Slave.
-- RAM Module: The part used in storing data coming from Slave.
-- Slave Module: The part used in Sending data coming from Master in a specific protocol.
-- RAM Testbench: Includes the testbench code for checking RAM functionality.
-- Slave Testbench: Includes the testbench code for checking Slave functionality.
-- Master: Includes the testbench code for the overall system to check the whole functionality is running well. 
-- Constraints File: Constraints file to connect ports to FPGA.
-- Do File: A scripted running file to automate questa sim flow.
-- Bitstream: Bitstream file generated after implementation on FPGA.
-- Netlist: This is a Verilog netlist of the current design or from a specific cell of the design. The output is anIEEE 1364-2001 compliant Verilog HDL file that contains netlist information obtained from the input design files.
+The SPI slave module is designed to handle data transfer between a master and a slave device using the SPI protocol. The single-port RAM module is used for data storage and retrieval. The project integrates both modules to enable SPI communication with a memory block.
+
+### Features
+
+- **SPI Slave Module**: Manages SPI protocol and data transfer.
+- **Single Port RAM**: Handles data storage and retrieval.
+- **Wrapper Module**: Integrates the SPI Slave and RAM modules for seamless communication.
+
+### Modules
+
+1. **SPI Slave Module**:
+   - **Inputs**: MOSI, SS_n, clk, rst_n
+   - **Outputs**: MISO, rx_data, rx_valid, tx_data, tx_valid
+
+2. **Single Port RAM Module**:
+   - **Inputs**: din, clk, rst_n, rx_valid
+   - **Outputs**: dout, tx_valid
+
+3. **Wrapper Module**:
+   - Integrates the SPI Slave and RAM modules.
+   - Manages data transfer between the master device and the RAM.
+
+### Ports and Signals
+
+#### SPI Slave Ports
+
+| Port Name | Type   | Size    | Description                     |
+|-----------|--------|---------|---------------------------------|
+| MOSI      | Input  | 1 bit   | Master Out Slave In (Data from master) |
+| MISO      | Output | 1 bit   | Master In Slave Out (Data to master)   |
+| SS_n      | Input  | 1 bit   | Slave Select (Active Low)              |
+| clk       | Input  | 1 bit   | Clock signal                          |
+| rst_n     | Input  | 1 bit   | Active Low Reset signal               |
+| rx_data   | Output | 10 bit  | Received data from master             |
+| rx_valid  | Output | 1 bit   | Indicates valid received data         |
+| tx_data   | Input  | 10 bit  | Data to be transmitted to master      |
+| tx_valid  | Input  | 1 bit   | Indicates valid data to transmit      |
+
+#### RAM Ports
+
+| Port Name | Type   | Size    | Description                     |
+|-----------|--------|---------|---------------------------------|
+| din       | Input  | 10 bit  | Data input                      |
+| clk       | Input  | 1 bit   | Clock signal                    |
+| rst_n     | Input  | 1 bit   | Active Low Reset signal         |
+| rx_valid  | Input  | 1 bit   | Indicates valid data input      |
+| dout      | Output | 8 bit   | Data output                     |
+| tx_valid  | Output | 1 bit   | Indicates valid data output     |
+
+### Operation
+
+The SPI slave module receives data from the master device and processes it based on the SPI protocol. The most significant bits of the input data (`din[9:8]`) determine the operation to be performed:
+
+- **00**: Write - Holds `din[7:0]` as a write address.
+- **01**: Write - Writes `din[7:0]` to the memory at the held write address.
+- **10**: Read - Holds `din[7:0]` as a read address.
+- **11**: Read - Reads data from the memory at the held read address and outputs it on `dout`.
+
+### RTL Code Snippets
+
+#### SPI Slave Module
+
+```verilog
+module SPI_Slave (MOSI, MISO, SS_n, clk, rst_n, rx_data, rx_valid, tx_data, tx_valid);
+    // Port declarations
+    input MOSI, SS_n, clk, rst_n;
+    input [9:0] tx_data;
+    input tx_valid;
+    output [9:0] rx_data;
+    output rx_valid, MISO;
+
+    // Internal signals and state machine logic
+    // ...
+endmodule
 
 ## Some Snippets :
 - Elaborated Design Schematic : 
